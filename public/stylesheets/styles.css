@@ -1,3 +1,41 @@
+body {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	color: black;
+	background-color: #ededed;
+}
+
+button {
+	/*border: 1px solid gray;*/
+	border-radius: 28%;
+	border-width: 3px;
+	margin: 1px;
+}
+
+li {
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	color: gray;
+}
+
+input {
+	background-color: lightyellow;
+}
+
+select {
+	background-color: lightyellow;
+}
+
 .group {
 	background-color: lightblue;
+}
+
+.edit {
+	background-color: lightgreen;
+}
+
+.delete {
+	background-color: lightpink;
+}
+
+.add {
+	background-color: lightyellow;
 }
