@@ -60,6 +60,7 @@ post("/contacts") do
 end
 
 put("/contacts/:id") do
+  binding.pry
   contact = Contact.find(params[:id])
   contact.update(contact_params(params))
 
