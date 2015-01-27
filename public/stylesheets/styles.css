@@ -24,6 +24,14 @@ select {
 	background-color: lightyellow;
 }
 
+ul {
+	list-style-type: none;
+}
+
+#contact-list {
+	margin-left: 25px;
+}
+
 .group {
 	background-color: lightblue;
 }
