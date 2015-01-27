@@ -19,9 +19,9 @@
 
 <table>
 	<tr>
-		<th width="100px">Groups</th>
-		<th width="400px">Individuals</th>
-		<th width="200px">Create</th>
+		<th width="100px"><label>Groups</label></th>
+		<th width="400px"><label>Individuals</label></th>
+		<th width="200px"><label>Create</label></th>
 	</tr>
 	<tr>
 		<td style="text-align:center;" width="100px" valign="top">
@@ -55,26 +55,29 @@
   	  			<input type="text" name="age" placeholder="age"/>
   	  			<input type="text" name="address" placeholder="address"/>
   	  			<input type="text" name="phone" placeholder="phone number"/>
-  	  			<!--<input type="text" name="picture" placeholder="image url"/>-->
+
   	  			<select name="category">
   	  				<option type="text" value="1">Friends</option>
   	  				<option type="text" value="2">Frenemies</option>
   	  				<option type="text" value="3">Family</option>
   	  				<option type="text" value="4">Work</option>
-
-<!--   	  				<option type="text" value="2">Family</option>
-  	  				<option type="text" value="4">Work</option> -->
-  	  			
   	  			</select>
-  	  			<!-- <input type="hidden" name="category_id" value="<%= category_id %>"/> -->
+
   	  			<button class="add" type="submit" id="add"/>Add</button>
+            <br><br>
   	  		</form>
+
+          <form id="search">
+            <label>Search</label><br>
+            <input type="text" name="name" placeholder="name"/>
+            <br>
+            <button class="search">Go</button>
+          </form>
   	  	</td>
   	 </tr>
  </table>
 
 
-
-
 </body>
+
 </html>

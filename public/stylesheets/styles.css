@@ -4,8 +4,12 @@ body {
 	background-color: #ededed;
 }
 
+label {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	color: black;
+}
+
 button {
-	/*border: 1px solid gray;*/
 	border-radius: 28%;
 	border-width: 3px;
 	margin: 1px;
@@ -13,6 +17,7 @@ button {
 
 li {
 	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 14px;
 	color: gray;
 }
 
@@ -33,10 +38,6 @@ img {
 	border: 2px gray solid;
 }
 
-/*#contact-list {
-	margin-left: 25px;
-}*/
-
 .group {
 	background-color: lightblue;
 }
@@ -53,12 +54,15 @@ img {
 	background-color: lightyellow;
 }
 
+.search {
+	background-color: lightyellow;
+}
+
 .left {
-	margin-left: 20px;
 	float: left;
+	word-wrap: normal;
 }
 
 .right {
-	margin-right: 20px;
 	float: right;
 }

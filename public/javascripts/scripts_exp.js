@@ -21,63 +21,19 @@ friends_button.on("click", function() {
 		for (var i = 0; i < data.contacts.length; i++) {
 			
 			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone: " + data.contacts[i].phone_number + "</li><br><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul><br>");
-			var newImage = $("<ul style='margin-bottom: 78px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul>")
+			var newImage = $("<ul style='margin-bottom: 71px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul>")
 			var edit_button = newLI.find(".edit");
 			var delete_button = newLI.find(".delete");
 
-			delete_button.on("click", function () {
-				$.ajax({
-					url: "/contacts/" + this.id,
-					type: "DELETE"
-				}).done(function (data) {
-				})
-			})
+			delContact(delete_button);
 
-			edit_button.on("click", function () {
-				for (var z = 0; z < data.contacts.length; z++) {
-  					if (this.id === data.contacts[z].id.toString()) {
-    					var contact_to_edit = data.contacts[z];  
-  					}
+			for (var z = 0; z < data.contacts.length; z++) {
+				if (edit_button.attr("id") === data.contacts[z].id.toString()) {
+					var contact_to_edit = data.contacts[z];  
 				}
-				var edit_form = $("<form> \
-					<input type='text' name='name' placeholder='name' value='" + contact_to_edit.name + "'/> \
-					<input type='text' name='age' placeholder='age' value='" + contact_to_edit.age + "'/> \
-					<input type='text' name='address' placeholder='address' value='" + contact_to_edit.address + "'/> \
-					<input type='text' name='phone' placeholder='phone' value='" + contact_to_edit.phone_number + "'/> \
-					<input type='text' name='picture' placeholder='picture' value='" + contact_to_edit.picture + "'/> \
-					<input type='hidden' name='id' value='" + contact_to_edit.id + "'/> \
-	  				<select name='category'> \
-	  					<option type='text' value='1'>Friends</option> \
-	  					<option type='text' value='2'>Frenemies</option> \
-	  					<option type='text' value='3'>Family</option> \
-	  					<option type='text' value='4'>Work</option> \
-	  				</select><br> \
-		  			<button class='edit' type='submit' id='edit'>Edit</button> \
-		  			<button class='cancel' type='submit' id='cancel'>Cancel</button> \
-					</form><br><br>")
-				$("#contact-list").prepend(edit_form);
-				
-				edit_form.children("#edit").on("click", function () {
-					var edited_contact = {
-						name: edit_form.children("input[name='name']").val(),
-						age: edit_form.children("input[name='age']").val(),
-						address: edit_form.children("input[name='address']").val(),
-						phone_number: edit_form.children("input[name='phone']").val(),
-						picture: edit_form.children("input[name='picture']").val(),
-						category_id: edit_form.children("select").val()
-					};
-					var contact_id = parseInt(edit_form.children("input[name='id']").val())
-					$.ajax({
-						url: "/contacts/" + contact_id,
-						type: "PUT",
-						dataType: "json",
-						data: edited_contact
-					}).done(function (data) {
-						console.log(data);
-					})
-				})
-				
-			})
+			}
+			editContact(edit_button, contact_to_edit);
+
 		$("#contact-list").append(newLI);	
 		$("#contact-image").append(newImage);
 		}
@@ -99,61 +55,19 @@ frenemies_button.on("click", function() {
 		for (var i = 0; i < data.contacts.length; i++) {
 	
 			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone: " + data.contacts[i].phone_number + "</li><br><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul><br>");
-			var newImage = $("<ul style='margin-bottom: 78px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul><br><br><br>")
+			var newImage = $("<ul style='margin-bottom: 71px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul><br><br><br>")
 			var edit_button = newLI.find(".edit");
 			var delete_button = newLI.find(".delete");
-			delete_button.on("click", function () {
-				$.ajax({
-					url: "/contacts/" + this.id,
-					type: "DELETE"
-				}).done(function (data) {
-				})
-			})
-			edit_button.on("click", function () {
-				for (var z = 0; z < data.contacts.length; z++) {
-  					if (this.id === data.contacts[z].id.toString()) {
-    					var contact_to_edit = data.contacts[z];  
-  					}
+
+			delContact(delete_button);
+
+			for (var z = 0; z < data.contacts.length; z++) {
+				if (edit_button.attr("id") === data.contacts[z].id.toString()) {
+					var contact_to_edit = data.contacts[z];  
 				}
-				var edit_form = $("<form> \
-					<input type='text' name='name' placeholder='name' value='" + contact_to_edit.name + "'/> \
-					<input type='text' name='age' placeholder='age' value='" + contact_to_edit.age + "'/> \
-					<input type='text' name='address' placeholder='address' value='" + contact_to_edit.address + "'/> \
-					<input type='text' name='phone' placeholder='phone' value='" + contact_to_edit.phone_number + "'/> \
-					<input type='text' name='picture' placeholder='picture' value='" + contact_to_edit.picture + "'/> \
-					<input type='hidden' name='id' value='" + contact_to_edit.id + "'/> \
-	  				<select name='category'> \
-	  					<option type='text' value='1'>Friends</option> \
-	  					<option type='text' value='2'>Frenemies</option> \
-	  					<option type='text' value='3'>Family</option> \
-	  					<option type='text' value='4'>Work</option> \
-	  				</select><br> \
-		  			<button class='edit' type='submit' id='edit'>Edit</button> \
-		  			<button class='cancel' type='submit' id='cancel'>Cancel</button> \
-					</form><br><br>")
-				$("#contact-list").prepend(edit_form);
-				
-				edit_form.children("#edit").on("click", function () {
-					var edited_contact = {
-						name: edit_form.children("input[name='name']").val(),
-						age: edit_form.children("input[name='age']").val(),
-						address: edit_form.children("input[name='address']").val(),
-						phone_number: edit_form.children("input[name='phone']").val(),
-						picture: edit_form.children("input[name='picture']").val(),
-						category_id: edit_form.children("select").val()
-					};
-					var contact_id = parseInt(edit_form.children("input[name='id']").val())
-					$.ajax({
-						url: "/contacts/" + contact_id,
-						type: "PUT",
-						dataType: "json",
-						data: edited_contact
-					}).done(function (data) {
-						console.log(data);
-					})
-				})
-				
-			})
+			}
+			editContact(edit_button, contact_to_edit);
+
 		$("#contact-list").append(newLI);
 		$("#contact-image").append(newImage);
 		}		
@@ -175,61 +89,19 @@ family_button.on("click", function() {
 		for (var i = 0; i < data.contacts.length; i++) {
 	
 			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone: " + data.contacts[i].phone_number + "</li><br><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul><br>");
-			var newImage = $("<ul style='margin-bottom: 78px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul><br><br><br>")
+			var newImage = $("<ul style='margin-bottom: 71px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul><br><br><br>")
 			var edit_button = newLI.find(".edit");
 			var delete_button = newLI.find(".delete");
-			delete_button.on("click", function () {
-				$.ajax({
-					url: "/contacts/" + this.id,
-					type: "DELETE"
-				}).done(function (data) {
-				})
-			})
-			edit_button.on("click", function () {
-				for (var z = 0; z < data.contacts.length; z++) {
-  					if (this.id === data.contacts[z].id.toString()) {
-    					var contact_to_edit = data.contacts[z];  
-  					}
+
+			delContact(delete_button);
+
+			for (var z = 0; z < data.contacts.length; z++) {
+				if (edit_button.attr("id") === data.contacts[z].id.toString()) {
+					var contact_to_edit = data.contacts[z];  
 				}
-				var edit_form = $("<form> \
-					<input type='text' name='name' placeholder='name' value='" + contact_to_edit.name + "'/> \
-					<input type='text' name='age' placeholder='age' value='" + contact_to_edit.age + "'/> \
-					<input type='text' name='address' placeholder='address' value='" + contact_to_edit.address + "'/> \
-					<input type='text' name='phone' placeholder='phone' value='" + contact_to_edit.phone_number + "'/> \
-					<input type='text' name='picture' placeholder='picture' value='" + contact_to_edit.picture + "'/> \
-					<input type='hidden' name='id' value='" + contact_to_edit.id + "'/> \
-	  				<select name='category'> \
-	  					<option type='text' value='1'>Friends</option> \
-	  					<option type='text' value='2'>Frenemies</option> \
-	  					<option type='text' value='3'>Family</option> \
-	  					<option type='text' value='4'>Work</option> \
-	  				</select><br> \
-		  			<button class='edit' type='submit' id='edit'>Edit</button> \
-		  			<button class='cancel' type='submit' id='cancel'>Cancel</button> \
-					</form><br><br>")
-				$("#contact-list").prepend(edit_form);
-				
-				edit_form.children("#edit").on("click", function () {
-					var edited_contact = {
-						name: edit_form.children("input[name='name']").val(),
-						age: edit_form.children("input[name='age']").val(),
-						address: edit_form.children("input[name='address']").val(),
-						phone_number: edit_form.children("input[name='phone']").val(),
-						picture: edit_form.children("input[name='picture']").val(),
-						category_id: edit_form.children("select").val()
-					};
-					var contact_id = parseInt(edit_form.children("input[name='id']").val())
-					$.ajax({
-						url: "/contacts/" + contact_id,
-						type: "PUT",
-						dataType: "json",
-						data: edited_contact
-					}).done(function (data) {
-						console.log(data);
-					})
-				})
-				
-			})
+			}
+			editContact(edit_button, contact_to_edit);
+
 		$("#contact-list").append(newLI);
 		$("#contact-image").append(newImage);
 		}
@@ -250,70 +122,50 @@ work_button.on("click", function() {
 		$(".group")[3].style.backgroundColor = "lightcyan";
 		for (var i = 0; i < data.contacts.length; i++) {
 			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone: " + data.contacts[i].phone_number + "</li><br><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul><br>");
-			var newImage = $("<ul style='margin-bottom: 78px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul><br><br><br>")
+			var newImage = $("<ul style='margin-bottom: 71px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul><br><br><br>")
 			var edit_button = newLI.find(".edit");
 			var delete_button = newLI.find(".delete");
-			delete_button.on("click", function () {
-				$.ajax({
-					url: "/contacts/" + this.id,
-					type: "DELETE"
-				}).done(function (data) {
-				})
-			})
-			edit_button.on("click", function () {
-				for (var z = 0; z < data.contacts.length; z++) {
-  					if (this.id === data.contacts[z].id.toString()) {
-    					var contact_to_edit = data.contacts[z];  
-  					}
+
+			delContact(delete_button);
+
+			for (var z = 0; z < data.contacts.length; z++) {
+				if (edit_button.attr("id") === data.contacts[z].id.toString()) {
+					var contact_to_edit = data.contacts[z];  
 				}
-				var edit_form = $("<form> \
-					<input type='text' name='name' placeholder='name' value='" + contact_to_edit.name + "'/> \
-					<input type='text' name='age' placeholder='age' value='" + contact_to_edit.age + "'/> \
-					<input type='text' name='address' placeholder='address' value='" + contact_to_edit.address + "'/> \
-					<input type='text' name='phone' placeholder='phone' value='" + contact_to_edit.phone_number + "'/> \
-					<input type='text' name='picture' placeholder='picture' value='" + contact_to_edit.picture + "'/> \
-					<input type='hidden' name='id' value='" + contact_to_edit.id + "'/> \
-	  				<select name='category'> \
-	  					<option type='text' value='1'>Friends</option> \
-	  					<option type='text' value='2'>Frenemies</option> \
-	  					<option type='text' value='3'>Family</option> \
-	  					<option type='text' value='4'>Work</option> \
-	  				</select><br> \
-		  			<button class='edit' type='submit' id='edit'>Edit</button> \
-		  			<button class='cancel' type='submit' id='cancel'>Cancel</button> \
-					</form><br><br>")
-				$("#contact-list").prepend(edit_form);
-				
-				edit_form.children("#edit").on("click", function () {
-					var edited_contact = {
-						name: edit_form.children("input[name='name']").val(),
-						age: edit_form.children("input[name='age']").val(),
-						address: edit_form.children("input[name='address']").val(),
-						phone_number: edit_form.children("input[name='phone']").val(),
-						picture: edit_form.children("input[name='picture']").val(),
-						category_id: edit_form.children("select").val()
-					};
-					var contact_id = parseInt(edit_form.children("input[name='id']").val())
-					$.ajax({
-						url: "/contacts/" + contact_id,
-						type: "PUT",
-						dataType: "json",
-						data: edited_contact
-					}).done(function (data) {
-						console.log(data);
-					})
-				})
-				
-			})
+			}
+			editContact(edit_button, contact_to_edit);
+
 		$("#contact-list").append(newLI);
 		$("#contact-image").append(newImage);
 		}
 	})
 });
 
+// SEARCH
+var search_button = $(".search")
+search_button.on("click", function () {
+	$.ajax({
+		url: "/contacts",
+		type: "GET"
+	}).done(function (data) {
+		debugger
+		var search_name = $("#search").find("input[name='name']").val();
+		for (var i = 0; i < data.length; i++) {
+			if (data[i].name.indexOf(search_name) < 0) {
+				alert(search_name + " was not found. Please search again or add them.");
+				console.log("not found");
+			}
+			else {
+				alert("found");
+				console.log("found");
+			}
+		}
+	})
+})
+
 
 // ADD FORM
-var add_form = $("form");
+var add_form = $("#new-contact");
 add_form.on("submit", function (e) {
 	e.preventDefault();
 
@@ -330,34 +182,78 @@ add_form.on("submit", function (e) {
 		type: "GET"
 	}).success(function (data) {
 		new_contact.picture = data.results[0].user.picture.thumbnail;
+		postNew(new_contact);
 	});
 
 	this.reset();
-
-	// post_new(new_contact)
-	
-	// $.ajax({
-	// 	url: "/contacts",
-	// 	type: "POST",
-	// 	dataType: "json",
-	// 	data: new_contact
-	// }).done(function (data) {
-	// 	console.log(data)
-	// })
-
 });
 
-var post_new = function (new_contact) {
+
+// CALLBACKS
+var postNew = function (contact) {
 	$.ajax({
 		url: "/contacts",
 		type: "POST",
 		dataType: "json",
-		data: new_contact
+		data: contact
 	}).done(function (data) {
-		console.log(data)
+		alert(data.name + " was Added! Touch Group " + data.category_id.toString() + " to View");
 	})
 };
 
+var delContact = function (button) {
+	button.on("click", function () {
+		$.ajax({
+			url: "/contacts/" + this.id,
+			type: "DELETE"
+		}).done(function (data) {
+		})
+	})
+}
+
+
+var editContact = function (button, contact) {
+	button.on("click", function () {
+		var edit_form = $("<form style='margin: 0px 50px 0px 130px;'> \
+			<input type='text' name='name' placeholder='name' value='" + contact.name + "'/> \
+			<input type='text' name='age' placeholder='age' value='" + contact.age + "'/> \
+			<input type='text' name='address' placeholder='address' value='" + contact.address + "'/> \
+			<input type='text' name='phone' placeholder='phone' value='" + contact.phone_number + "'/> \
+			<input type='text' name='picture' placeholder='picture' value='" + contact.picture + "'/> \
+			<input type='hidden' name='id' value='" + contact.id + "'/> \
+				<select name='category'> \
+					<option type='text' value='1'>Friends</option> \
+					<option type='text' value='2'>Frenemies</option> \
+					<option type='text' value='3'>Family</option> \
+					<option type='text' value='4'>Work</option> \
+				</select><br> \
+  			<button class='edit' type='submit' id='edit'>Edit</button> \
+  			<button class='cancel' type='submit' id='cancel'>Cancel</button> \
+			</form><br><br>")
+		$("#contact-list").prepend(edit_form);
+		
+		edit_form.children("#edit").on("click", function () {
+			var edited_contact = {
+				name: edit_form.children("input[name='name']").val(),
+				age: edit_form.children("input[name='age']").val(),
+				address: edit_form.children("input[name='address']").val(),
+				phone_number: edit_form.children("input[name='phone']").val(),
+				picture: edit_form.children("input[name='picture']").val(),
+				category_id: edit_form.children("select").val()
+			};
+			var contact_id = parseInt(edit_form.children("input[name='id']").val())
+			$.ajax({
+				url: "/contacts/" + contact_id,
+				type: "PUT",
+				dataType: "json",
+				data: edited_contact
+			}).done(function (data) {
+				console.log(data);
+			})
+		})
+		
+	})
+}
 
 // end window onload jquery
 });
