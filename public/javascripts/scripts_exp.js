@@ -9,6 +9,7 @@ $(function() {
 var friends_button = $("#friends");
 friends_button.on("click", function() {
 	$("#contact-list").empty();
+	$("#contact-image").empty();
 	$(".group").each(function () {
 		this.style.backgroundColor = "lightblue";
 	})
@@ -19,9 +20,11 @@ friends_button.on("click", function() {
 		$(".group")[0].style.backgroundColor = "lightcyan";
 		for (var i = 0; i < data.contacts.length; i++) {
 			
-			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone:" + data.contacts[i].phone_number + "</li><li>Picture: " + data.contacts[i].picture + "</li><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul>");
+			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone: " + data.contacts[i].phone_number + "</li><br><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul><br>");
+			var newImage = $("<ul style='margin-bottom: 78px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul>")
 			var edit_button = newLI.find(".edit");
 			var delete_button = newLI.find(".delete");
+
 			delete_button.on("click", function () {
 				$.ajax({
 					url: "/contacts/" + this.id,
@@ -29,6 +32,7 @@ friends_button.on("click", function() {
 				}).done(function (data) {
 				})
 			})
+
 			edit_button.on("click", function () {
 				for (var z = 0; z < data.contacts.length; z++) {
   					if (this.id === data.contacts[z].id.toString()) {
@@ -36,11 +40,11 @@ friends_button.on("click", function() {
   					}
 				}
 				var edit_form = $("<form> \
-					<input type='text' name='name' value='" + contact_to_edit.name + "'/> \
-					<input type='text' name='age' value='" + contact_to_edit.age + "'/> \
-					<input type='text' name='address' value='" + contact_to_edit.address + "'/> \
-					<input type='text' name='phone' value='" + contact_to_edit.phone_number + "'/> \
-					<input type='text' name='picture' value='" + contact_to_edit.picture + "'/> \
+					<input type='text' name='name' placeholder='name' value='" + contact_to_edit.name + "'/> \
+					<input type='text' name='age' placeholder='age' value='" + contact_to_edit.age + "'/> \
+					<input type='text' name='address' placeholder='address' value='" + contact_to_edit.address + "'/> \
+					<input type='text' name='phone' placeholder='phone' value='" + contact_to_edit.phone_number + "'/> \
+					<input type='text' name='picture' placeholder='picture' value='" + contact_to_edit.picture + "'/> \
 					<input type='hidden' name='id' value='" + contact_to_edit.id + "'/> \
 	  				<select name='category'> \
 	  					<option type='text' value='1'>Friends</option> \
@@ -69,13 +73,13 @@ friends_button.on("click", function() {
 						dataType: "json",
 						data: edited_contact
 					}).done(function (data) {
-						debugger
 						console.log(data);
 					})
 				})
 				
 			})
 		$("#contact-list").append(newLI);	
+		$("#contact-image").append(newImage);
 		}
 	})
 });
@@ -83,6 +87,7 @@ friends_button.on("click", function() {
 var frenemies_button = $("#frenemies");
 frenemies_button.on("click", function() {
 	$("#contact-list").empty();
+	$("#contact-image").empty();
 	$(".group").each(function () {
 		this.style.backgroundColor = "lightblue";
 	})
@@ -93,7 +98,8 @@ frenemies_button.on("click", function() {
 		$(".group")[1].style.backgroundColor = "lightcyan";
 		for (var i = 0; i < data.contacts.length; i++) {
 	
-			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone:" + data.contacts[i].phone_number + "</li><li>Picture: " + data.contacts[i].picture + "</li><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul>");
+			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone: " + data.contacts[i].phone_number + "</li><br><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul><br>");
+			var newImage = $("<ul style='margin-bottom: 78px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul><br><br><br>")
 			var edit_button = newLI.find(".edit");
 			var delete_button = newLI.find(".delete");
 			delete_button.on("click", function () {
@@ -110,11 +116,11 @@ frenemies_button.on("click", function() {
   					}
 				}
 				var edit_form = $("<form> \
-					<input type='text' name='name' value='" + contact_to_edit.name + "'/> \
-					<input type='text' name='age' value='" + contact_to_edit.age + "'/> \
-					<input type='text' name='address' value='" + contact_to_edit.address + "'/> \
-					<input type='text' name='phone' value='" + contact_to_edit.phone_number + "'/> \
-					<input type='text' name='picture' value='" + contact_to_edit.picture + "'/> \
+					<input type='text' name='name' placeholder='name' value='" + contact_to_edit.name + "'/> \
+					<input type='text' name='age' placeholder='age' value='" + contact_to_edit.age + "'/> \
+					<input type='text' name='address' placeholder='address' value='" + contact_to_edit.address + "'/> \
+					<input type='text' name='phone' placeholder='phone' value='" + contact_to_edit.phone_number + "'/> \
+					<input type='text' name='picture' placeholder='picture' value='" + contact_to_edit.picture + "'/> \
 					<input type='hidden' name='id' value='" + contact_to_edit.id + "'/> \
 	  				<select name='category'> \
 	  					<option type='text' value='1'>Friends</option> \
@@ -143,13 +149,13 @@ frenemies_button.on("click", function() {
 						dataType: "json",
 						data: edited_contact
 					}).done(function (data) {
-						debugger
 						console.log(data);
 					})
 				})
 				
 			})
-		$("#contact-list").append(newLI);	
+		$("#contact-list").append(newLI);
+		$("#contact-image").append(newImage);
 		}		
 	})
 });
@@ -157,6 +163,7 @@ frenemies_button.on("click", function() {
 var family_button = $("#family");
 family_button.on("click", function() {
 	$("#contact-list").empty();
+	$("#contact-image").empty();
 	$(".group").each(function () {
 		this.style.backgroundColor = "lightblue";
 	})
@@ -167,7 +174,8 @@ family_button.on("click", function() {
 		$(".group")[2].style.backgroundColor = "lightcyan";
 		for (var i = 0; i < data.contacts.length; i++) {
 	
-			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone:" + data.contacts[i].phone_number + "</li><li>Picture: " + data.contacts[i].picture + "</li><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul>");
+			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone: " + data.contacts[i].phone_number + "</li><br><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul><br>");
+			var newImage = $("<ul style='margin-bottom: 78px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul><br><br><br>")
 			var edit_button = newLI.find(".edit");
 			var delete_button = newLI.find(".delete");
 			delete_button.on("click", function () {
@@ -184,11 +192,11 @@ family_button.on("click", function() {
   					}
 				}
 				var edit_form = $("<form> \
-					<input type='text' name='name' value='" + contact_to_edit.name + "'/> \
-					<input type='text' name='age' value='" + contact_to_edit.age + "'/> \
-					<input type='text' name='address' value='" + contact_to_edit.address + "'/> \
-					<input type='text' name='phone' value='" + contact_to_edit.phone_number + "'/> \
-					<input type='text' name='picture' value='" + contact_to_edit.picture + "'/> \
+					<input type='text' name='name' placeholder='name' value='" + contact_to_edit.name + "'/> \
+					<input type='text' name='age' placeholder='age' value='" + contact_to_edit.age + "'/> \
+					<input type='text' name='address' placeholder='address' value='" + contact_to_edit.address + "'/> \
+					<input type='text' name='phone' placeholder='phone' value='" + contact_to_edit.phone_number + "'/> \
+					<input type='text' name='picture' placeholder='picture' value='" + contact_to_edit.picture + "'/> \
 					<input type='hidden' name='id' value='" + contact_to_edit.id + "'/> \
 	  				<select name='category'> \
 	  					<option type='text' value='1'>Friends</option> \
@@ -217,13 +225,13 @@ family_button.on("click", function() {
 						dataType: "json",
 						data: edited_contact
 					}).done(function (data) {
-						debugger
 						console.log(data);
 					})
 				})
 				
 			})
-		$("#contact-list").append(newLI);	
+		$("#contact-list").append(newLI);
+		$("#contact-image").append(newImage);
 		}
 	})
 });
@@ -231,6 +239,7 @@ family_button.on("click", function() {
 var work_button = $("#work");
 work_button.on("click", function() {
 	$("#contact-list").empty();
+	$("#contact-image").empty();
 	$(".group").each(function () {
 		this.style.backgroundColor = "lightblue";
 	})
@@ -240,7 +249,8 @@ work_button.on("click", function() {
 	}).done(function (data) {
 		$(".group")[3].style.backgroundColor = "lightcyan";
 		for (var i = 0; i < data.contacts.length; i++) {
-			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone:" + data.contacts[i].phone_number + "</li><li>Picture: " + data.contacts[i].picture + "</li><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul>");
+			var newLI = $("<ul><li id='" + data.contacts[i].id + "'>" + data.contacts[i].name + "</li><li>Age: " + data.contacts[i].age + "</li><li>Address: " + data.contacts[i].address + "</li><li>Phone: " + data.contacts[i].phone_number + "</li><br><button class='edit' id='" + data.contacts[i].id + "'>Edit</button><button class='delete' id='" + data.contacts[i].id + "'>Delete</button></ul><br>");
+			var newImage = $("<ul style='margin-bottom: 78px;'><li><img src='" + data.contacts[i].picture + "'/></li></ul><br><br><br>")
 			var edit_button = newLI.find(".edit");
 			var delete_button = newLI.find(".delete");
 			delete_button.on("click", function () {
@@ -257,11 +267,11 @@ work_button.on("click", function() {
   					}
 				}
 				var edit_form = $("<form> \
-					<input type='text' name='name' value='" + contact_to_edit.name + "'/> \
-					<input type='text' name='age' value='" + contact_to_edit.age + "'/> \
-					<input type='text' name='address' value='" + contact_to_edit.address + "'/> \
-					<input type='text' name='phone' value='" + contact_to_edit.phone_number + "'/> \
-					<input type='text' name='picture' value='" + contact_to_edit.picture + "'/> \
+					<input type='text' name='name' placeholder='name' value='" + contact_to_edit.name + "'/> \
+					<input type='text' name='age' placeholder='age' value='" + contact_to_edit.age + "'/> \
+					<input type='text' name='address' placeholder='address' value='" + contact_to_edit.address + "'/> \
+					<input type='text' name='phone' placeholder='phone' value='" + contact_to_edit.phone_number + "'/> \
+					<input type='text' name='picture' placeholder='picture' value='" + contact_to_edit.picture + "'/> \
 					<input type='hidden' name='id' value='" + contact_to_edit.id + "'/> \
 	  				<select name='category'> \
 	  					<option type='text' value='1'>Friends</option> \
@@ -290,13 +300,13 @@ work_button.on("click", function() {
 						dataType: "json",
 						data: edited_contact
 					}).done(function (data) {
-						debugger
 						console.log(data);
 					})
 				})
 				
 			})
 		$("#contact-list").append(newLI);
+		$("#contact-image").append(newImage);
 		}
 	})
 });
@@ -312,20 +322,32 @@ add_form.on("submit", function (e) {
 		age: this.elements["age"].value,
 		address: this.elements["address"].value,
 		phone_number: this.elements["phone"].value,
-		category_id: this.elements["category"].value,
+		category_id: this.elements["category"].value
 	};
 
 	$.ajax({
 		url: "http://api.randomuser.me/",
 		type: "GET"
 	}).success(function (data) {
-
 		new_contact.picture = data.results[0].user.picture.thumbnail;
-
 	});
 
 	this.reset();
 
+	// post_new(new_contact)
+	
+	// $.ajax({
+	// 	url: "/contacts",
+	// 	type: "POST",
+	// 	dataType: "json",
+	// 	data: new_contact
+	// }).done(function (data) {
+	// 	console.log(data)
+	// })
+
+});
+
+var post_new = function (new_contact) {
 	$.ajax({
 		url: "/contacts",
 		type: "POST",
@@ -334,8 +356,7 @@ add_form.on("submit", function (e) {
 	}).done(function (data) {
 		console.log(data)
 	})
-
-});
+};
 
 
 // end window onload jquery

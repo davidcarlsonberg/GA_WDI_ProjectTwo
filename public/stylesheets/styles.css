@@ -28,9 +28,14 @@ ul {
 	list-style-type: none;
 }
 
-#contact-list {
-	margin-left: 25px;
+img {
+	border-radius: 25%;
+	border: 2px gray solid;
 }
+
+/*#contact-list {
+	margin-left: 25px;
+}*/
 
 .group {
 	background-color: lightblue;
@@ -46,4 +51,14 @@ ul {
 
 .add {
 	background-color: lightyellow;
+}
+
+.left {
+	margin-left: 20px;
+	float: left;
+}
+
+.right {
+	margin-right: 20px;
+	float: right;
 }
